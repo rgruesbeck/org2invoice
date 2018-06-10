@@ -10,9 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^2.15.1",
-    "concat-stream": "^1.6.2",
     "event-stream": "^3.3.4",
-    "stream-reduce": "^1.0.3",
-    "through2": "^2.0.3"
+    "stream-reduce": "^1.0.3"
   }
 }
