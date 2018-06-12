@@ -6,11 +6,18 @@ const fs = require('fs');
 const es = require('event-stream');
 const reduce = require('stream-reduce');
 const program = require('commander');
+const handlebars = require('handlebars');
+const moment = require('moment');
+
+require.extensions['.html'] = (module, filename) => {
+  module.exports = fs.readFileSync(filename, 'utf8');
+};
 
 program
   .version('0.0.1', '-v, --version')
   .usage('[options] <file.org>')
   .option('-p, --profile <jsonfile>', 'client.json')
+  .option('-t, --template <templatefile>', 'template.html')
   .option('-r, --rate <n>', 'Hourly Rate', parseFloat)
   .option('-c, --client <client_name>', 'Client Name')
   .option('-a, --address <client_address>', 'Client Address');
@@ -19,6 +26,7 @@ program
   .action(function(env){
     let client = {
       client: program.client || rand_str('client'),
+      template: program.template || __dirname + '/templates/plain.html',
       rate: (program.rate || 20) / 60,
       address: program.address || "remote",
       worklog: env,
@@ -29,24 +37,26 @@ program
 
 program.parse(process.argv);
 
-
-const buildInvoice = es.writeArray((err, array) => {
-  return array;
-})
-
 function invoice(client){
   fs.createReadStream(client.worklog)
     .pipe(es.split())
     .pipe(reduce(function(work, data) {
       return addWork(work, data);
-    }, new Map().set('client', client).set('total', 0)))
+    }, {
+      log: new Map(),
+      client: client,
+      rate: client.rate,
+      total: 0
+    }))
     .on("data", function(work) {
-      console.log(work);
+      let source = require(__dirname + '/templates/plain.html');
+      let template = handlebars.compile(source);
+      let html = template(work);
+      console.log(html);
     });
 }
 
 function addWork(work, data){
-  let client = work.get('client');
   return [ data ]
     .map((i) => {
       // Stringify
@@ -70,7 +80,7 @@ function addWork(work, data){
       return {
         date: i.match(/\d...-\d.-\d./)[0],
         time: time ? time : 0,
-        value: time ? time * client.rate : 0,
+        value: time ? time * work.rate : 0,
         description: '',
         data: i
       };
@@ -82,19 +92,19 @@ function addWork(work, data){
         '';
       return i;
     })
-    .reduce((wk, i) => {
+    .reduce((work, i) => {
       // Update Date
-      if(wk.has(i.date)) {
+      if(work.log.has(i.date)) {
         // Old Date
-        let wi = wk.get(i.date);
-        wk.set(i.date, {
+        let wi = work.log.get(i.date);
+        work.log.set(i.date, {
           time: wi.time += i.time,
           value: wi.value += i.value,
           description: wi.description += i.description
         });
       } else {
         // New Date
-        wk.set(i.date, {
+        work.log.set(i.date, {
           time: i.time,
           value: i.value,
           description: i.description
@@ -102,11 +112,22 @@ function addWork(work, data){
       }
 
       // Update Value
-      let total = wk.get('total') + i.value;
-      wk.set('total', total);
+      let total = work.log.get('total') + i.value;
+      work.log.set('total', total);
 
-      return wk;
+      return work;
     }, work)
+}
+
+function render(work){
+  return handlebars.compile(work.client.template)({
+    to: work.to,
+    from: work.from,
+    date: moment().format('MMMM Do YYYY'),
+    invoice_id: work.id,
+    items: work.log,
+    total: work.total
+  });
 }
 
 function rand_str(prefix){
