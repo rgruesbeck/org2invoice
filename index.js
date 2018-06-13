@@ -53,7 +53,12 @@ function invoice(client){
     .on("data", function(work) {
       let source = require(__dirname + '/templates/plain.html');
       let template = handlebars.compile(source);
-      let html = template(work);
+      let html = template({
+        id: work.id,
+        date: work.date,
+        log: Array.from(work.log),
+        total: work.total.toFixed(2),
+      });
       console.log(html);
       //console.log(work);
     });
