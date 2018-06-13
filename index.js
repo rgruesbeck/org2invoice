@@ -25,7 +25,7 @@ program
 program
   .action(function(env){
     let client = {
-      client: program.client || rand_str('client'),
+      name: program.client || rand_str('client:'),
       template: program.template || __dirname + '/templates/plain.html',
       rate: (program.rate || 20) / 60,
       address: program.address || "remote",
@@ -43,8 +43,10 @@ function invoice(client){
     .pipe(reduce(function(work, data) {
       return addWork(work, data);
     }, {
+      id: rand_str(),
+      date: new Date().toISOString(),
       log: new Map(),
-      client: client,
+      to: client,
       rate: client.rate,
       total: 0
     }))
@@ -53,6 +55,7 @@ function invoice(client){
       let template = handlebars.compile(source);
       let html = template(work);
       console.log(html);
+      //console.log(work);
     });
 }
 
@@ -112,8 +115,7 @@ function addWork(work, data){
       }
 
       // Update Value
-      let total = work.log.get('total') + i.value;
-      work.log.set('total', total);
+      work.total += i.value;
 
       return work;
     }, work)
@@ -130,10 +132,10 @@ function render(work){
   });
 }
 
-function rand_str(prefix){
+function rand_str(str){
+  let prefix = str || '';
   return [
     ...prefix,
-    '_',
     Math.random().toString(16).slice(2)
   ].join('');
 }

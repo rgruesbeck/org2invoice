@@ -22,10 +22,10 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-6">
-          <h1><small>Invoice: {{date}}</small></h1>
+          <h1><small>Date: {{date}}</small></h1>
         </div>
         <div class="col-xs-6 text-right">
-          <h1><small>Invoice ID: {{invoice_id}}</small></h1>
+          <h1><small>ID: {{id}}</small></h1>
         </div>
       </div>
       <hr>
@@ -36,7 +36,7 @@
               <h4>From: {{from.name}}</h4>
             </div>
             <div class="panel-body">
-              <p>{{from.address}} {{from.city}} {{from.state}}, {{from.zip}}</p>
+              <p>{{from.address}}</p>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@
               <h4>For: {{to.name}}</h4>
             </div>
             <div class="panel-body">
-              <p>{{to.address}} {{to.city}} {{to.state}}, {{to.zip}}</p>
+              <p>{{to.address}}</p>
             </div>
           </div>
         </div>
