@@ -56,7 +56,15 @@ function invoice(client){
       let html = template({
         id: work.id,
         date: work.date,
-        log: Array.from(work.log),
+        log: Array.from(work.log, (item) => {
+          return {
+            date: item[0],
+            description: item[1].description,
+            hours: ''.concat((item[1].time / 60).toFixed(0), ':', item[1].time % 60),
+            rate: '$'.concat(work.rate * 60, '/hr'),
+            total: item[1].value.toFixed(2)
+          };
+        }),
         total: work.total.toFixed(2),
       });
       console.log(html);
