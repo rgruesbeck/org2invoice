@@ -1,21 +1,16 @@
 # Org2Invoice
-CLI tool for converting an org file with org-clock reports into a PDF invoice.
-
-Collect LOGBOOK to END, sum minutes into total, collect lines into description.
-{
-  date: last date,
-  total: total_time,
-  description: [blah, blah],
-}
-Stop at "Invoiced""
+CLI tool for converting an org file with org-clock reports into an invoice.
 
 ## TODO
-- parse org file
-- print to stdout
-- pdf creation
+- fix rendering
+- fix description comma
+- add no need for TASK: string
 - support for profiles
-- support for templates
 - support for BTC
+- pdf creation
+- publish to npm
+- review code
+- better README
 
 ## References
 - https://github.com/rgruesbeck/invoicer/blob/master/index.js
