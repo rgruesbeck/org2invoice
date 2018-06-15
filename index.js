@@ -24,15 +24,21 @@ program
 
 program
   .action(function(env){
-    let client = {
-      name: program.client || rand_str('client:'),
+    let inv = {
       template: program.template || __dirname + '/templates/plain.html',
       rate: (program.rate || 20) / 60,
-      address: program.address || "remote",
       worklog: env,
+      from: {
+        name: "Contractor Name",
+        address: "123 Contractor RD"
+      },
+      to: {
+        name: program.client || rand_str('client:'),
+        address: program.address || "123 Client RD"
+      }
     };
 
-    invoice(client);
+    invoice(inv);
   });
 
 program.parse(process.argv);
@@ -46,7 +52,8 @@ function invoice(client){
       id: rand_str(),
       date: new Date().toISOString(),
       log: new Map(),
-      to: client,
+      to: client.to,
+      from: client.from,
       rate: client.rate,
       total: 0
     }))
@@ -66,6 +73,8 @@ function invoice(client){
           };
         }),
         total: work.total.toFixed(2),
+        from: work.from,
+        to: work.to
       });
       console.log(html);
       //console.log(work);
