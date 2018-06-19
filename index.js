@@ -30,7 +30,9 @@ program
       worklog: env,
       from: {
         name: "Contractor Name",
-        address: "123 Contractor RD"
+        address: "123 Contractor RD",
+        email: "contractor@email.com",
+        phone: "123-456-7890"
       },
       to: {
         name: program.client || rand_str('client:'),
