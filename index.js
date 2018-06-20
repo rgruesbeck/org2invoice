@@ -86,37 +86,9 @@ function invoice(client){
 function addWork(work, data){
   return [ data ]
     .map((i) => {
-      // Stringify
-      return i.toString();
+      return parseEntry(i.toString(), work);
     })
     .filter((i) => {
-      // LogBook Entries Only
-      return /^CLOCK|^TASK/.test(i);
-    })
-    .map((i) => {
-      // Clock Entries
-      let time = i
-          .match(/=>.*$/)[0]
-          .replace('=>  ', '')
-          .split(":")
-          .reduce((total, n, idx) => {
-            let t = parseInt(n);
-            return total + (idx == 0 ? (t * 60) : t);
-          }, 0);
-
-      return {
-        date: i.match(/\d...-\d.-\d./)[0],
-        time: time ? time : 0,
-        value: time ? time * work.rate : 0,
-        description: '',
-        data: i
-      };
-    })
-    .map((i) => {
-      // Task Entries
-      i.description = /^TASK/.test(i.data) ?
-        i.description + ', ' + i.data.match(/=>.*$/)[0].replace('=>  ', '') :
-        '';
       return i;
     })
     .reduce((work, i) => {
@@ -143,6 +115,51 @@ function addWork(work, data){
 
       return work;
     }, work)
+}
+
+function parseEntry(i, work){
+  // Tasks
+  if (/^\d...-\d.-\d./.test(i)) {
+    return parseTask(i, work);
+  }
+
+  // Clocks
+  if (/^CLOCK/.test(i)) {
+    return parseClock(i, work);
+  }
+
+  return null;
+}
+
+function parseClock(i, work){
+  let date = i.match(/\d...-\d.-\d./)[0];
+  let time = i
+      .match(/=>.*$/)[0]
+      .replace('=>  ', '')
+      .split(":")
+      .reduce((total, n, idx) => {
+        let t = parseInt(n);
+        return total + (idx == 0 ? (t * 60) : t);
+      }, 0);
+
+  return {
+    date: date,
+    time: time ? time : 0,
+    value: time ? time * work.rate : 0,
+    description: '',
+    data: i
+  };
+}
+
+function parseTask(i, work){
+  let date = i.match(/\d...-\d.-\d./)[0];
+  return {
+    date: date,
+    time: 0,
+    value: 0,
+    description: i.replace(date, ''),
+    data: i
+  };
 }
 
 function render(work){
