@@ -35,7 +35,7 @@ program
         phone: "123-456-7890"
       },
       to: {
-        name: program.client || rand_str('client:'),
+        name: program.client || rand_str(''),
         address: program.address || "123 Client RD"
       }
     };
@@ -52,7 +52,7 @@ function invoice(client){
       return addWork(work, data);
     }, {
       id: rand_str(),
-      date: new Date().toISOString(),
+      date: new Date().toISOString().slice(0, 10),
       log: new Map(),
       to: client.to,
       from: client.from,
@@ -70,7 +70,7 @@ function invoice(client){
             date: item[0],
             description: item[1].description,
             hours: ''.concat((item[1].time / 60).toFixed(0), ':', pad(item[1].time % 60)),
-            rate: '$'.concat(work.rate * 60, '/hr'),
+            rate: '$'.concat((work.rate * 60).toFixed(2), '/hr'),
             total: item[1].value.toFixed(2)
           };
         }),
