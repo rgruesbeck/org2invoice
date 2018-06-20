@@ -69,7 +69,7 @@ function invoice(client){
           return {
             date: item[0],
             description: item[1].description,
-            hours: ''.concat((item[1].time / 60).toFixed(0), ':', item[1].time % 60),
+            hours: ''.concat((item[1].time / 60).toFixed(0), ':', pad(item[1].time % 60)),
             rate: '$'.concat(work.rate * 60, '/hr'),
             total: item[1].value.toFixed(2)
           };
@@ -81,6 +81,11 @@ function invoice(client){
       console.log(html);
       //console.log(work);
     });
+}
+
+function pad(n) {
+  let s = n+"";
+  return s.length < 2 ? "0"+s : s;
 }
 
 function addWork(work, data){
