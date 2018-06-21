@@ -32,7 +32,9 @@ program
         name: process.env.NAME,
         address: process.env.ADDRESS,
         email: process.env.EMAIL,
-        phone: process.env.PHONE
+        phone: process.env.PHONE,
+        btc: process.env.BTC,
+        ltc: process.env.LTC
       },
       to: {
         name: program.client || rand_str(''),
