@@ -29,14 +29,14 @@ program
       rate: (program.rate || 20) / 60,
       worklog: env,
       from: {
-        name: "Contractor Name",
-        address: "123 Contractor RD",
-        email: "contractor@email.com",
-        phone: "123-456-7890"
+        name: process.env.NAME,
+        address: process.env.ADDRESS,
+        email: process.env.EMAIL,
+        phone: process.env.PHONE
       },
       to: {
         name: program.client || rand_str(''),
-        address: program.address || "123 Client RD"
+        address: program.address || "Remote"
       }
     };
 
