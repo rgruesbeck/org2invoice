@@ -1,6 +1,13 @@
 # Org2Invoice
 CLI tool for converting an org file with org-clock reports into an invoice.
 
+## Install
+
+## Example
+```sh
+org2invoice worklog.org > invoice.html
+```
+
 ## TODO
 - support for profiles
 - pdf creation
