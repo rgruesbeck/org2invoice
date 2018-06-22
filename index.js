@@ -34,7 +34,7 @@ program
         email: process.env.EMAIL,
         phone: process.env.PHONE,
         btc: process.env.BTC,
-        ltc: process.env.LTC
+        square: process.env.SQUARE
       },
       to: {
         name: program.client || rand_str(''),

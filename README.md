@@ -2,8 +2,6 @@
 CLI tool for converting an org file with org-clock reports into an invoice.
 
 ## TODO
-- add comma separation
-- support for BTC
 - support for profiles
 - pdf creation
 - publish to npm
