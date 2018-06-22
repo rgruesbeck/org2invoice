@@ -70,7 +70,7 @@ function invoice(client){
         log: Array.from(work.log, (item) => {
           return {
             date: item[0],
-            description: item[1].description,
+            description: item[1].description.join(''),
             hours: ''.concat((item[1].time / 60).toFixed(0), ':', pad(item[1].time % 60)),
             rate: '$'.concat((work.rate * 60).toFixed(2), '/hr'),
             total: item[1].value.toFixed(2)
@@ -106,14 +106,14 @@ function addWork(work, data){
         work.log.set(i.date, {
           time: wi.time += i.time,
           value: wi.value += i.value,
-          description: wi.description += i.description
+          description: [...wi.description, i.description]
         });
       } else {
         // New Date
         work.log.set(i.date, {
           time: i.time,
           value: i.value,
-          description: i.description
+          description: [i.description]
         });
       }
 
