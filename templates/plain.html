@@ -73,7 +73,7 @@
         <tbody>
           {{#each log}}
             <tr>
-              <td>{{{date}}}</td>
+              <td nowrap>{{{date}}}</td>
               <td>{{{description}}}</td>
               <td>{{{hours}}}</td>
               <td>{{{rate}}}</td>
@@ -108,10 +108,11 @@
         <div class="col-xs-8">
           <div class="panel">
             <div class="panel-heading">
-              <h4>Payment Methods</h4>
+              <h4>Payment</h4>
             </div>
             <div class="panel-body">
               <strong>
+                <p>Check: {{{from.address}}}</p>
                 <p>Bitcoin: {{{from.btc}}}</p>
                 <p>Square: {{{from.square}}}</p>
               </strong>
