@@ -1,7 +1,7 @@
 {
   "name": "org2invoice",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "CLI tool for converting an org file with org-clock reports into an invoice."
   "main": "index.js",
   "scripts": {
     "test": "./index.js tmp/test.org > tmp/test.html; firefox tmp/test.html"
