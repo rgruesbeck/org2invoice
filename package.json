@@ -6,7 +6,10 @@
   "scripts": {
     "test": "./index.js tmp/test.org > tmp/test.html; firefox tmp/test.html"
   },
-  "author": "",
+  "bin": {
+    "org2invoice": "./index.js"
+  },
+  "author": "Ron Gruesbeck",
   "license": "ISC",
   "dependencies": {
     "commander": "^2.15.1",
