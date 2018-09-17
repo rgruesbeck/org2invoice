@@ -71,7 +71,7 @@ function invoice(client){
           return {
             date: item[0],
             description: item[1].description.join(''),
-            hours: ''.concat((item[1].time / 60).toFixed(0), ':', pad(item[1].time % 60)),
+            hours: ''.concat(Math.floor(item[1].time / 60), ':', pad(item[1].time % 60)),
             rate: '$'.concat((work.rate * 60).toFixed(2), '/hr'),
             total: item[1].value.toFixed(2)
           };
