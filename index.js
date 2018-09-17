@@ -14,7 +14,7 @@ require.extensions['.html'] = (module, filename) => {
 };
 
 program
-  .version('0.0.3', '-v, --version')
+  .version('0.0.4', '-v, --version')
   .usage('[options] <file.org>')
   .option('-p, --profile <jsonfile>', 'client.json')
   .option('-t, --template <templatefile>', 'template.html')
