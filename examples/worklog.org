@@ -1,0 +1,38 @@
+* June/01
+:LOGBOOK:
+#+BEGIN: clocktable :maxlevel 2 :scope subtree
+#+CAPTION: Clock summary at [2018-06-07 Thu 23:37]
+| Headline     | Time   |
+|--------------+--------|
+| *Total time* | *4:00* |
+|--------------+--------|
+| June/01      | 4:00   |
+#+END:
+
+CLOCK: [2018-06-01 Fri 13:42]--[2018-06-01 Fri 14:19] =>  0:37
+CLOCK: [2018-06-01 Fri 09:53]--[2018-06-01 Fri 12:58] =>  3:05
+CLOCK: [2018-06-01 Fri 09:11]--[2018-06-01 Fri 09:29] =>  0:18
+:END:
+2018-06-01 add basic layout, multiple plots, add design.ui, update windows instructions
+* May/31
+:LOGBOOK:
+#+BEGIN: clocktable :maxlevel 2 :scope subtree
+#+CAPTION: Clock summary at [2018-06-07 Thu 23:37]
+| Headline     | Time   |
+|--------------+--------|
+| *Total time* | *4:11* |
+|--------------+--------|
+| May/31       | 4:11   |
+#+END:
+
+CLOCK: [2018-05-31 Thu 21:19]--[2018-05-31 Thu 21:35] =>  0:16
+CLOCK: [2018-05-31 Thu 18:30]--[2018-05-31 Thu 18:43] =>  0:13
+CLOCK: [2018-05-31 Thu 16:38]--[2018-05-31 Thu 17:05] =>  0:27
+CLOCK: [2018-05-31 Thu 15:29]--[2018-05-31 Thu 16:37] =>  1:08
+CLOCK: [2018-05-31 Thu 12:56]--[2018-05-31 Thu 15:03] =>  2:07
+TASK: 2018-05-31 =>  add windows gcc/g++ instructions, update .gitignore
+2018-05-31 add windows gcc/g++ instructions, update .gitignore
+TASK: 2018-05-31 =>  new task
+:END:
+2018-05-31 add windows gcc/g++ instructions, update .gitignore
+2018-05-31 add os detection to build, add freeze and pyinstaller to requirements.txt
