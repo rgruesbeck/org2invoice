@@ -12,10 +12,10 @@
   "author": "Ron Gruesbeck",
   "license": "ISC",
   "dependencies": {
-    "commander": "^2.15.1",
-    "event-stream": "^3.3.4",
-    "handlebars": "^4.0.11",
-    "moment": "^2.22.2",
-    "stream-reduce": "^1.0.3"
+    "commander": "2.15.1",
+    "event-stream": "3.3.4",
+    "handlebars": "4.0.11",
+    "moment": "2.22.2",
+    "stream-reduce": "1.0.3"
   }
 }
